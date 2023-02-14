@@ -2,6 +2,7 @@ package br.com.ismadrade.service;
 
 import br.com.ismadrade.dto.CustomerDto;
 import br.com.ismadrade.entity.CustomerEntity;
+import br.com.ismadrade.mapper.CustomerMapper;
 import br.com.ismadrade.repository.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,18 +14,20 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     @Inject
-    private CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
+
+    @Inject
+    CustomerMapper customerMapper;
 
     public List<CustomerDto> findAllCustomers(){
-        return customerRepository
+        return customerMapper.toDtoList(customerRepository
                 .findAll()
                 .stream()
-                .map((this::mapCustomerEntityToDTO))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     public void createNewCustomer(CustomerDto customerDto){
-        customerRepository.persist(mapCustomerDTOToEntity(customerDto));
+        customerRepository.persist(customerMapper.toEntity(customerDto));
     }
 
     public void changeCustomer(Long id, CustomerDto customerDto){
@@ -41,29 +44,6 @@ public class CustomerService {
 
     public void deleteCustomer(Long id){
         customerRepository.deleteById(id);
-    }
-
-    private CustomerDto mapCustomerEntityToDTO(CustomerEntity customer){
-
-        return new CustomerDto(customer.getName(),
-                customer.getPhone(),
-                customer.getEmail(),
-                customer.getAddress(),
-                customer.getAge()
-        );
-    }
-
-    private CustomerEntity mapCustomerDTOToEntity(CustomerDto customerDto){
-
-        CustomerEntity customerEntity = new CustomerEntity();
-
-        customerEntity.setName(customerDto.getName());
-        customerEntity.setPhone(customerDto.getPhone());
-        customerEntity.setEmail(customerDto.getEmail());
-        customerEntity.setAddress(customerDto.getAddress());
-        customerEntity.setAge(customerDto.getAge());
-
-        return customerEntity;
     }
 
 }
