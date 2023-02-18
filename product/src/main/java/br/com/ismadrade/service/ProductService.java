@@ -46,4 +46,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public ProductDto findProductById(Long id) {
+        return productMapper.toDto(productRepository.findById(id));
+    }
 }

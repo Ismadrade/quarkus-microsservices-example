@@ -1,6 +1,5 @@
 package br.com.ismadrade.dto;
 
-import br.com.ismadrade.entity.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class CustomerDto {
 
-    private Long id;
     private String name;
     private String phone;
     private String email;

@@ -7,6 +7,7 @@ import br.com.ismadrade.service.ProductService;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -17,8 +18,16 @@ public class ProductController {
     ProductService productService;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<ProductDto> findAllProducts(){
         return productService.getAllProducts();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ProductDto findProductById(@PathParam("id") Long id){
+        return productService.findProductById(id);
     }
 
     @POST

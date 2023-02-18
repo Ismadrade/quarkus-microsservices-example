@@ -1,0 +1,20 @@
+# port
+quarkus:
+  http:
+    port: 8082
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: 1234
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/orderdb
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+
+
+  rest-client:
+    customer-api:
+      url: http://localhost:8080/api
+    product-api:
+      url: http://localhost:8081/api

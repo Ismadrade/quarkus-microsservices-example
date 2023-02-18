@@ -26,6 +26,10 @@ public class CustomerService {
                 .collect(Collectors.toList()));
     }
 
+    public CustomerDto findCustomerById(Long id) {
+        return customerMapper.toDto(customerRepository.findById(id));
+    }
+
     public void createNewCustomer(CustomerDto customerDto){
         customerRepository.persist(customerMapper.toEntity(customerDto));
     }
@@ -45,5 +49,4 @@ public class CustomerService {
     public void deleteCustomer(Long id){
         customerRepository.deleteById(id);
     }
-
 }
