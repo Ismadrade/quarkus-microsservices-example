@@ -18,3 +18,10 @@ quarkus:
       url: http://localhost:8080/api
     product-api:
       url: http://localhost:8081/api
+
+
+  oidc:
+    auth-server-url: http://localhost:8180/realms/quarkus
+    client-id: backend-service
+    credentials:
+      secret: secret

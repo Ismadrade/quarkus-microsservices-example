@@ -3,6 +3,7 @@ package br.com.ismadrade.controller;
 import br.com.ismadrade.dto.OrderDto;
 import br.com.ismadrade.service.OrderService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
@@ -20,6 +21,7 @@ public class OrderController {
     OrderService orderService;
 
     @GET
+    @RolesAllowed({"user", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<OrderDto> findAllOrders(){
         return orderService.getAllOrders();
