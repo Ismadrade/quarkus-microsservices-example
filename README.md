@@ -5,8 +5,10 @@ Modelo simples de uma aplicação Java utilizando framework Quarkus, banco de da
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=idea,java,docker,maven,postman,postgres" />
-    &nbsp;&nbsp;&nbsp;<img height="45" width="45" src="https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png" />
-    </a>
+    &nbsp;&nbsp;&nbsp;
+    <img height="45" width="45" src="https://seeklogo.com/images/Q/quarkus-logo-C9F006782E-seeklogo.com.png" />
+    <img height="45" width="100" src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*TyL8RGXV5IB42AwV4PYUkw.png" />
+  </a>
 </p>
 
 # Tecnologias Abordadas:
