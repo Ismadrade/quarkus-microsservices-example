@@ -1,10 +1,10 @@
-package br.com.ismadrade.infrastructure.controller;
+package br.com.ismadrade.infrastructure.entrypoints.controller;
 
 import br.com.ismadrade.core.domain.Customer;
 import br.com.ismadrade.core.usecase.RegisterCustomerUseCase;
 import br.com.ismadrade.core.usecase.parameter.RegisterCustomerParameters;
-import br.com.ismadrade.infrastructure.dto.CustomerDto;
-import br.com.ismadrade.infrastructure.service.CustomerService;
+import br.com.ismadrade.infrastructure.entrypoints.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.provider.CustomerProvider;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomerController {
 
     @Inject
-    CustomerService customerService;
+    CustomerProvider customerProvider;
 
     @Inject
     RegisterCustomerUseCase registerCustomerUseCase;
@@ -25,14 +25,14 @@ public class CustomerController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CustomerDto> findAllCustomers(){
-        return customerService.findAllCustomers();
+        return customerProvider.findAllCustomers();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomerDto findCustomerById(@PathParam("id") Long id){
-        return customerService.findCustomerById(id);
+        return customerProvider.findCustomerById(id);
     }
 
     @POST
@@ -53,7 +53,7 @@ public class CustomerController {
     @Transactional
     public Response changeCustomer(@PathParam("id") Long id, CustomerDto customerDto){
         try {
-            customerService.changeCustomer(id, customerDto);
+            customerProvider.changeCustomer(id, customerDto);
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class CustomerController {
     @Transactional
     public Response deleteCustomer(@PathParam("id") Long id){
         try {
-            customerService.deleteCustomer(id);
+            customerProvider.deleteCustomer(id);
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();

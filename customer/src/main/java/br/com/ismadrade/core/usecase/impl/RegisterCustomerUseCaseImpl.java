@@ -1,7 +1,7 @@
 package br.com.ismadrade.core.usecase.impl;
 
 import br.com.ismadrade.core.domain.Customer;
-import br.com.ismadrade.core.gateway.CustomerGateway;
+import br.com.ismadrade.core.port.CustomerPort;
 import br.com.ismadrade.core.usecase.RegisterCustomerUseCase;
 import br.com.ismadrade.core.usecase.parameter.RegisterCustomerParameters;
 
@@ -10,10 +10,10 @@ import javax.inject.Named;
 @Named
 public class RegisterCustomerUseCaseImpl implements RegisterCustomerUseCase {
 
-    private final CustomerGateway registerCustomerGateway;
+    private final CustomerPort registerCustomerPort;
 
-    public RegisterCustomerUseCaseImpl(CustomerGateway registerCustomerGateway) {
-        this.registerCustomerGateway = registerCustomerGateway;
+    public RegisterCustomerUseCaseImpl(CustomerPort registerCustomerPort) {
+        this.registerCustomerPort = registerCustomerPort;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class RegisterCustomerUseCaseImpl implements RegisterCustomerUseCase {
         final Long age  = parameters.getAge();
         final Customer customer = new Customer(null, name, phone, email, address, age);
 
-        return registerCustomerGateway.createNewCustomer(customer);
+        return registerCustomerPort.createNewCustomer(customer);
     }
 }

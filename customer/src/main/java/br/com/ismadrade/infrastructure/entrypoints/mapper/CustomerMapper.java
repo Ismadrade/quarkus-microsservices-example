@@ -1,8 +1,8 @@
-package br.com.ismadrade.infrastructure.mapper;
+package br.com.ismadrade.infrastructure.entrypoints.mapper;
 
 import br.com.ismadrade.core.domain.Customer;
-import br.com.ismadrade.infrastructure.dto.CustomerDto;
-import br.com.ismadrade.infrastructure.entity.CustomerEntity;
+import br.com.ismadrade.infrastructure.entrypoints.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.jpa.entity.CustomerEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;

@@ -1,9 +1,8 @@
-package br.com.ismadrade.config;
+package br.com.ismadrade.infrastructure.config;
 
 import br.com.ismadrade.core.usecase.RegisterCustomerUseCase;
 import br.com.ismadrade.core.usecase.impl.RegisterCustomerUseCaseImpl;
-import br.com.ismadrade.infrastructure.service.CustomerService;
-import io.quarkus.arc.DefaultBean;
+import br.com.ismadrade.infrastructure.provider.CustomerProvider;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -12,7 +11,7 @@ import javax.enterprise.inject.Produces;
 public class CustomerConfiguration {
 
     @Produces
-    public RegisterCustomerUseCase registerCustomerUseCase(CustomerService customerService){
-        return new RegisterCustomerUseCaseImpl(customerService);
+    public RegisterCustomerUseCase registerCustomerUseCase(CustomerProvider customerProvider){
+        return new RegisterCustomerUseCaseImpl(customerProvider);
     }
 }

@@ -1,11 +1,11 @@
-package br.com.ismadrade.infrastructure.service;
+package br.com.ismadrade.infrastructure.provider;
 
 import br.com.ismadrade.core.domain.Customer;
-import br.com.ismadrade.core.gateway.CustomerGateway;
-import br.com.ismadrade.infrastructure.dto.CustomerDto;
-import br.com.ismadrade.infrastructure.entity.CustomerEntity;
-import br.com.ismadrade.infrastructure.mapper.CustomerMapper;
-import br.com.ismadrade.infrastructure.repository.CustomerRepository;
+import br.com.ismadrade.core.port.CustomerPort;
+import br.com.ismadrade.infrastructure.entrypoints.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.jpa.entity.CustomerEntity;
+import br.com.ismadrade.infrastructure.entrypoints.mapper.CustomerMapper;
+import br.com.ismadrade.infrastructure.jpa.repository.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class CustomerService implements CustomerGateway {
+public class CustomerProvider implements CustomerPort {
 
     @Inject
     CustomerRepository customerRepository;

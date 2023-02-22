@@ -1,8 +1,8 @@
-package br.com.ismadrade.core.gateway;
+package br.com.ismadrade.core.port;
 
 import br.com.ismadrade.core.domain.Customer;
 
 @FunctionalInterface
-public interface CustomerGateway {
+public interface CustomerPort {
     Customer createNewCustomer(final Customer customer);
 }

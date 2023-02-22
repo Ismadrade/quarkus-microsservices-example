@@ -1,4 +1,4 @@
-package br.com.ismadrade.infrastructure.entity;
+package br.com.ismadrade.infrastructure.jpa.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

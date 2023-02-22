@@ -1,6 +1,6 @@
-package br.com.ismadrade.infrastructure.repository;
+package br.com.ismadrade.infrastructure.jpa.repository;
 
-import br.com.ismadrade.infrastructure.entity.CustomerEntity;
+import br.com.ismadrade.infrastructure.jpa.entity.CustomerEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
