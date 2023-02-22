@@ -1,4 +1,4 @@
-package br.com.ismadrade.infrastructure.entrypoints.dto;
+package br.com.ismadrade.entrypoints.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package br.com.ismadrade.infrastructure.entrypoints.controller;
+package br.com.ismadrade.entrypoints.controller;
 
-import br.com.ismadrade.core.domain.Customer;
-import br.com.ismadrade.core.usecase.RegisterCustomerUseCase;
+import br.com.ismadrade.core.usecase.*;
+import br.com.ismadrade.core.usecase.parameter.EditCustomerParameters;
 import br.com.ismadrade.core.usecase.parameter.RegisterCustomerParameters;
-import br.com.ismadrade.infrastructure.entrypoints.dto.CustomerDto;
-import br.com.ismadrade.infrastructure.provider.CustomerProvider;
+import br.com.ismadrade.entrypoints.dto.CustomerDto;
+import br.com.ismadrade.entrypoints.mapper.CustomerMapper;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,22 +17,34 @@ import java.util.List;
 public class CustomerController {
 
     @Inject
-    CustomerProvider customerProvider;
+    RegisterCustomerUseCase registerCustomerUseCase;
 
     @Inject
-    RegisterCustomerUseCase registerCustomerUseCase;
+    CustomerMapper customerMapper;
+
+    @Inject
+    EditCustomerUseCase editCustomerUseCase;
+
+    @Inject
+    FindAllCustomerUseCase findAllCustomerUseCase;
+
+    @Inject
+    FindCustomerByIdUseCase findCustomerByIdUseCase;
+
+    @Inject
+    RemoveCustomerUseCase removeCustomerUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CustomerDto> findAllCustomers(){
-        return customerProvider.findAllCustomers();
+        return customerMapper.of(findAllCustomerUseCase.execute());
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomerDto findCustomerById(@PathParam("id") Long id){
-        return customerProvider.findCustomerById(id);
+        return customerMapper.of(findCustomerByIdUseCase.execute(id));
     }
 
     @POST
@@ -40,7 +52,7 @@ public class CustomerController {
     public Response saveCustomer(CustomerDto customerDto){
         try {
             final RegisterCustomerParameters parameters = new RegisterCustomerParameters(customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
-            Customer customer = registerCustomerUseCase.execute(parameters);
+            CustomerDto customer = customerMapper.of(registerCustomerUseCase.execute(parameters));
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();
@@ -53,7 +65,8 @@ public class CustomerController {
     @Transactional
     public Response changeCustomer(@PathParam("id") Long id, CustomerDto customerDto){
         try {
-            customerProvider.changeCustomer(id, customerDto);
+            final EditCustomerParameters parameters = new EditCustomerParameters(id, customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
+            editCustomerUseCase.execute(parameters);
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();
@@ -66,7 +79,7 @@ public class CustomerController {
     @Transactional
     public Response deleteCustomer(@PathParam("id") Long id){
         try {
-            customerProvider.deleteCustomer(id);
+            removeCustomerUseCase.execute(id);
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();

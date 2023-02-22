@@ -10,10 +10,10 @@ import javax.inject.Named;
 @Named
 public class RegisterCustomerUseCaseImpl implements RegisterCustomerUseCase {
 
-    private final CustomerPort registerCustomerPort;
+    private final CustomerPort customerPort;
 
-    public RegisterCustomerUseCaseImpl(CustomerPort registerCustomerPort) {
-        this.registerCustomerPort = registerCustomerPort;
+    public RegisterCustomerUseCaseImpl(CustomerPort customerPort) {
+        this.customerPort = customerPort;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class RegisterCustomerUseCaseImpl implements RegisterCustomerUseCase {
         final Long age  = parameters.getAge();
         final Customer customer = new Customer(null, name, phone, email, address, age);
 
-        return registerCustomerPort.createNewCustomer(customer);
+        return customerPort.createNewCustomer(customer);
     }
 }
