@@ -1,4 +1,4 @@
-package br.com.ismadrade.entity;
+package br.com.ismadrade.infrastructure.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

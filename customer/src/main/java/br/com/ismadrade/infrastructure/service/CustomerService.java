@@ -1,9 +1,11 @@
-package br.com.ismadrade.service;
+package br.com.ismadrade.infrastructure.service;
 
-import br.com.ismadrade.dto.CustomerDto;
-import br.com.ismadrade.entity.CustomerEntity;
-import br.com.ismadrade.mapper.CustomerMapper;
-import br.com.ismadrade.repository.CustomerRepository;
+import br.com.ismadrade.core.domain.Customer;
+import br.com.ismadrade.core.gateway.CustomerGateway;
+import br.com.ismadrade.infrastructure.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.entity.CustomerEntity;
+import br.com.ismadrade.infrastructure.mapper.CustomerMapper;
+import br.com.ismadrade.infrastructure.repository.CustomerRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class CustomerService {
+public class CustomerService implements CustomerGateway {
 
     @Inject
     CustomerRepository customerRepository;
@@ -30,8 +32,9 @@ public class CustomerService {
         return customerMapper.toDto(customerRepository.findById(id));
     }
 
-    public void createNewCustomer(CustomerDto customerDto){
-        customerRepository.persist(customerMapper.toEntity(customerDto));
+    public Customer createNewCustomer(final  Customer customer){
+        customerRepository.persist(customerMapper.of(customer));
+        return customer;
     }
 
     public void changeCustomer(Long id, CustomerDto customerDto){

@@ -1,7 +1,10 @@
-package br.com.ismadrade.controller;
+package br.com.ismadrade.infrastructure.controller;
 
-import br.com.ismadrade.dto.CustomerDto;
-import br.com.ismadrade.service.CustomerService;
+import br.com.ismadrade.core.domain.Customer;
+import br.com.ismadrade.core.usecase.RegisterCustomerUseCase;
+import br.com.ismadrade.core.usecase.parameter.RegisterCustomerParameters;
+import br.com.ismadrade.infrastructure.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.service.CustomerService;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,6 +18,9 @@ public class CustomerController {
 
     @Inject
     CustomerService customerService;
+
+    @Inject
+    RegisterCustomerUseCase registerCustomerUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,7 +39,8 @@ public class CustomerController {
     @Transactional
     public Response saveCustomer(CustomerDto customerDto){
         try {
-            customerService.createNewCustomer(customerDto);
+            final RegisterCustomerParameters parameters = new RegisterCustomerParameters(customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
+            Customer customer = registerCustomerUseCase.execute(parameters);
             return Response.ok().build();
         }catch (Exception e){
             e.printStackTrace();

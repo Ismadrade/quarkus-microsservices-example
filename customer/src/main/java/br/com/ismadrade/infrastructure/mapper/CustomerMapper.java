@@ -1,7 +1,8 @@
-package br.com.ismadrade.mapper;
+package br.com.ismadrade.infrastructure.mapper;
 
-import br.com.ismadrade.dto.CustomerDto;
-import br.com.ismadrade.entity.CustomerEntity;
+import br.com.ismadrade.core.domain.Customer;
+import br.com.ismadrade.infrastructure.dto.CustomerDto;
+import br.com.ismadrade.infrastructure.entity.CustomerEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface CustomerMapper {
     List<CustomerDto> toDtoList(List<CustomerEntity> products);
 
     CustomerEntity toEntity(CustomerDto dto);
+
+    CustomerEntity of(Customer customer);
 }

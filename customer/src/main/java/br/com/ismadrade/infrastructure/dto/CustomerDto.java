@@ -1,6 +1,5 @@
-package br.com.ismadrade.dto;
+package br.com.ismadrade.infrastructure.dto;
 
-import br.com.ismadrade.entity.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
