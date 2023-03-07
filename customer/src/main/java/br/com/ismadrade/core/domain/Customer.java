@@ -1,20 +1,21 @@
 package br.com.ismadrade.core.domain;
 
+import br.com.ismadrade.core.domain.vo.Phone;
+
 import java.io.Serializable;
 
 public class Customer implements Serializable {
 
     private final Long id;
     private final String name;
-    private final String phone;
+    private Phone phone;
     private final String email;
     private final String address;
     private final Long age;
 
-    public Customer(Long id, String name, String phone, String email, String address, Long age) {
+    public Customer(Long id, String name, String email, String address, Long age) {
         this.id = id;
         this.name = name;
-        this.phone = phone;
         this.email = email;
         this.address = address;
         this.age = age;
@@ -28,7 +29,7 @@ public class Customer implements Serializable {
         return name;
     }
 
-    public String getPhone() {
+    public Phone getPhone() {
         return phone;
     }
 
@@ -42,5 +43,9 @@ public class Customer implements Serializable {
 
     public Long getAge() {
         return age;
+    }
+
+    public void setPhone(String phone){
+        this.phone = new Phone(phone);
     }
 }
