@@ -49,41 +49,28 @@ public class CustomerController {
 
     @POST
     @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
     public Response saveCustomer(CustomerDto customerDto){
-        try {
-            final RegisterCustomerParameters parameters = new RegisterCustomerParameters(customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
-            CustomerDto customer = customerMapper.of(registerCustomerUseCase.execute(parameters));
-            return Response.ok().build();
-        }catch (Exception e){
-            e.printStackTrace();
-            return Response.serverError().build();
-        }
+        final RegisterCustomerParameters parameters = new RegisterCustomerParameters(customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
+        CustomerDto customer = customerMapper.of(registerCustomerUseCase.execute(parameters));
+        return Response.ok().entity(customer).build();
     }
 
     @PUT
     @Path("/{id}")
     @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
     public Response changeCustomer(@PathParam("id") Long id, CustomerDto customerDto){
-        try {
-            final EditCustomerParameters parameters = new EditCustomerParameters(id, customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
-            editCustomerUseCase.execute(parameters);
-            return Response.ok().build();
-        }catch (Exception e){
-            e.printStackTrace();
-            return Response.serverError().build();
-        }
+        final EditCustomerParameters parameters = new EditCustomerParameters(id, customerDto.getName(), customerDto.getPhone(), customerDto.getEmail(), customerDto.getAddress(), customerDto.getAge());
+        CustomerDto customer = customerMapper.of(editCustomerUseCase.execute(parameters));
+        return Response.ok().entity(customer).build();
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
     public Response deleteCustomer(@PathParam("id") Long id){
-        try {
-            removeCustomerUseCase.execute(id);
-            return Response.ok().build();
-        }catch (Exception e){
-            e.printStackTrace();
-            return Response.serverError().build();
-        }
+        removeCustomerUseCase.execute(id);
+        return Response.ok().build();
     }
 }
