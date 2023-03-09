@@ -40,7 +40,7 @@ public class Phone implements Serializable {
 
     private void validateNumberPhone(String phone){
         if (!phone.matches("[0-9]+"))
-            throw new IllegalArgumentException("O número do telefone deve conter somente números.");
+            throw new IllegalArgumentException("O número do telefone deve conter somente números!");
 
     }
 

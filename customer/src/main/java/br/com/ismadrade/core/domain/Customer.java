@@ -19,6 +19,7 @@ public class Customer implements Serializable {
         this.email = email;
         this.address = address;
         this.age = age;
+        this.validate();
     }
 
     public Long getId() {
@@ -47,5 +48,21 @@ public class Customer implements Serializable {
 
     public void setPhone(String phone){
         this.phone = new Phone(phone);
+    }
+
+    private void validate(){
+        if(name == null || name.trim().equals(""))
+            throw new IllegalArgumentException("O nome é obrigatório!");
+
+        if(address == null || address.trim().equals(""))
+            throw new IllegalArgumentException("O endereço é obrigatório!");
+
+        if(age == null)
+            throw new IllegalArgumentException("A idade é obrigatória!");
+
+        if(age < 0 || age > 200)
+            throw new IllegalArgumentException("Idade inválida!");
+
+
     }
 }
