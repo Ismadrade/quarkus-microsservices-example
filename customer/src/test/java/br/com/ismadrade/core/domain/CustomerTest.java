@@ -1,4 +1,4 @@
-package br.com.ismadrade.core;
+package br.com.ismadrade.core.domain;
 
 import br.com.ismadrade.core.domain.Customer;
 import org.junit.jupiter.api.DisplayName;
