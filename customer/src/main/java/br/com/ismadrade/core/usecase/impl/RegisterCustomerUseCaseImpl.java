@@ -25,7 +25,9 @@ public class RegisterCustomerUseCaseImpl implements RegisterCustomerUseCase {
         final String address = parameters.getAddress();
         final Long age  = parameters.getAge();
         final Customer customer = new Customer(null, name, email, address, age);
-        customer.setPhone(phone);
+
+        if(phone != null && !phone.equals(""))
+            customer.setPhone(phone);
 
         return customerPort.createNewCustomer(customer);
     }
