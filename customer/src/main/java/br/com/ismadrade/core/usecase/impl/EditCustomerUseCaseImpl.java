@@ -15,6 +15,8 @@ public class EditCustomerUseCaseImpl implements EditCustomerUseCase {
 
     @Override
     public Customer execute(EditCustomerParameters parameters) {
-        return customerPort.changeCustomer(parameters);
+        Customer customer = new Customer(parameters.getId(), parameters.getName(), parameters.getEmail(), parameters.getAddress(), parameters.getAge());
+        customer.setPhone(parameters.getPhone());
+        return customerPort.changeCustomer(customer);
     }
 }

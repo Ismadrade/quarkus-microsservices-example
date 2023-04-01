@@ -42,17 +42,18 @@ public class CustomerProvider implements CustomerPort {
     }
 
     @Override
-    public Customer changeCustomer(EditCustomerParameters editCustomerParameters){
-        CustomerEntity customerEntity = customerRepository.findById(editCustomerParameters.getId());
+    public Customer changeCustomer(Customer customer){
 
-        customerEntity.setName(editCustomerParameters.getName());
-        customerEntity.setPhone(editCustomerParameters.getPhone());
-        customerEntity.setEmail(editCustomerParameters.getEmail());
-        customerEntity.setAddress(editCustomerParameters.getAddress());
-        customerEntity.setAge(editCustomerParameters.getAge());
+
+        CustomerEntity customerEntity = customerRepository.findById(customer.getId());
+        customerEntity.setName(customer.getName());
+        customerEntity.setPhone(customer.getPhone().getFormattedPhone());
+        customerEntity.setEmail(customer.getEmail());
+        customerEntity.setAddress(customer.getAddress());
+        customerEntity.setAge(customer.getAge());
 
         customerRepository.persist(customerEntity);
-        return customerMapper.of(customerEntity);
+        return customer;
     }
 
     @Override
