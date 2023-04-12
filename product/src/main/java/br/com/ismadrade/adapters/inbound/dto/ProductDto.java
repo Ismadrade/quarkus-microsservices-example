@@ -1,4 +1,4 @@
-package br.com.ismadrade.dto;
+package br.com.ismadrade.adapters.inbound.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
