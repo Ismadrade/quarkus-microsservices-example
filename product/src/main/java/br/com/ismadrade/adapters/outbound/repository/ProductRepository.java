@@ -1,6 +1,6 @@
-package br.com.ismadrade.repository;
+package br.com.ismadrade.adapters.outbound.repository;
 
-import br.com.ismadrade.entity.ProductEntity;
+import br.com.ismadrade.adapters.outbound.entity.ProductEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;

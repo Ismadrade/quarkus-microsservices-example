@@ -1,8 +1,12 @@
-package br.com.ismadrade.controller;
+package br.com.ismadrade.adapters.inbound.controller;
 
 
-import br.com.ismadrade.dto.ProductDto;
-import br.com.ismadrade.service.ProductService;
+import br.com.ismadrade.adapters.inbound.dto.ProductDto;
+import br.com.ismadrade.adapters.inbound.mapper.ProductMapper;
+import br.com.ismadrade.adapters.outbound.ProductPersistencePortImpl;
+import br.com.ismadrade.application.core.domain.Product;
+import br.com.ismadrade.application.ports.in.ProductServicePort;
+import br.com.ismadrade.application.ports.out.ProductPersistencePort;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,27 +19,29 @@ import java.util.List;
 public class ProductController {
 
     @Inject
-    ProductService productService;
+    ProductServicePort productServicePort;
+
+    @Inject
+    ProductMapper mapper;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProductDto> findAllProducts(){
-        return productService.getAllProducts();
+        return mapper.of(productServicePort.getAllProducts());
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ProductDto findProductById(@PathParam("id") Long id){
-        return productService.findProductById(id);
+        return mapper.of(productServicePort.findProductById(id));
     }
 
     @POST
     @Transactional
     public Response saveProduct(ProductDto productDto){
         try {
-            productService.createNewProduct(productDto);
-            return Response.ok().build();
+            return Response.ok().entity(productServicePort.create(mapper.from(productDto))).build();
         }catch (Exception e) {
             return Response.ok().build();
         }
@@ -46,7 +52,7 @@ public class ProductController {
     @Transactional
     public Response changeProduct(@PathParam("id") Long id, ProductDto productDto){
         try {
-            productService.changeProduct(id, productDto);
+            productServicePort.changeProduct(id, mapper.from(productDto));
             return Response.ok().build();
         }catch (Exception e) {
             return Response.ok().build();
@@ -58,7 +64,7 @@ public class ProductController {
     @Transactional
     public Response removeProduct(@PathParam("id") Long id){
         try {
-            productService.deleteProduct(id);
+            productServicePort.deleteProduct(id);
             return Response.ok().build();
         }catch (Exception e) {
             return Response.ok().build();
